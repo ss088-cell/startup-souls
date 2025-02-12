@@ -9,21 +9,34 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [industriesOpen, setIndustriesOpen] = useState(false); // Controls industries dropdown
 
+  // Industry List for the dropdown
+  const industries = [
+    { name: "Agriculture", path: "agriculture" },
+    { name: "AI", path: "ai" },
+    { name: "Online Shopping (E-Commerce)", path: "ecommerce" },
+    { name: "Education", path: "education" },
+    { name: "Finance (Fintech)", path: "fintech" },
+    { name: "Health (Health Tech)", path: "healthtech" },
+    { name: "Media and Entertainment", path: "media" },
+    { name: "Real Estate Tech", path: "realestate" },
+    { name: "Travel Tech", path: "traveltech" },
+  ];
+
   return (
     <header className="w-full bg-white shadow-sm px-6 py-2 flex justify-between items-center">
-      {/* Left: Logo with Image (Smaller for Compact Header) */}
+      {/* Left: Logo with Image */}
       <div className="flex items-center space-x-4">
         <Link href="/">
           <Image
             src="/logo.png"
             alt="Startup Souls Logo"
-            width={120} // Reduced width
-            height={30} // Reduced height
+            width={120}
+            height={30}
             priority
           />
         </Link>
 
-        {/* Secondary Navigation (Beside Logo) */}
+        {/* Secondary Navigation */}
         <div className="hidden md:flex space-x-6 text-gray-600 text-lg font-light">
           {/* Industries Dropdown */}
           <div
@@ -45,39 +58,26 @@ export default function Header() {
                   className="absolute left-0 mt-2 w-64 bg-white shadow-lg rounded-md overflow-hidden z-10"
                 >
                   <ul className="text-gray-700 text-md font-medium">
-                    <li className="hover:bg-gray-100 px-4 py-2">
-                      <Link href="/industries/agriculture">Agriculture</Link>
-                    </li>
-                    <li className="hover:bg-gray-100 px-4 py-2">
-                      <Link href="/industries/ai">AI</Link>
-                    </li>
-                    <li className="hover:bg-gray-100 px-4 py-2">
-                      <Link href="/industries/ecommerce">Online Shopping (E-Commerce)</Link>
-                    </li>
-                    <li className="hover:bg-gray-100 px-4 py-2">
-                      <Link href="/industries/education">Education</Link>
-                    </li>
-                    <li className="hover:bg-gray-100 px-4 py-2">
-                      <Link href="/industries/fintech">Finance (Fintech)</Link>
-                    </li>
-                    <li className="hover:bg-gray-100 px-4 py-2">
-                      <Link href="/industries/healthtech">Health (Health Tech)</Link>
-                    </li>
-                    <li className="hover:bg-gray-100 px-4 py-2">
-                      <Link href="/industries/media">Media and Entertainment</Link>
-                    </li>
-                    <li className="hover:bg-gray-100 px-4 py-2">
-                      <Link href="/industries/realestate">Real Estate Tech</Link>
-                    </li>
-                    <li className="hover:bg-gray-100 px-4 py-2">
-                      <Link href="/industries/traveltech">Travel Tech</Link>
-                    </li>
+                    {industries.map((industry) => (
+                      <li
+                        key={industry.path}
+                        className="hover:bg-gray-100 px-4 py-2"
+                      >
+                        <Link
+                          href={`/industries/${industry.path}`}
+                          onClick={() => setIndustriesOpen(false)} // Close dropdown on click
+                        >
+                          {industry.name}
+                        </Link>
+                      </li>
+                    ))}
                   </ul>
                 </motion.div>
               )}
             </AnimatePresence>
           </div>
 
+          {/* Other Links */}
           <Link href="/micro-entrepreneur">
             <span className="hover:text-blue-500 cursor-pointer transition-all duration-300">
               For Micro Entrepreneur
